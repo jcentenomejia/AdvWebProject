@@ -3,10 +3,11 @@ require_once("PersonModel.php");
 session_start();
 
 // login = user's email
-if (isset($_SESSION["user_email"])) {
-  print "Your are logged as  $_SESSION[user_first_name] $_SESSION[user_name].";
-}
-else {
+//if (isset($_SESSION["user_email"])) {
+//  print "Your are logged as  $_SESSION[user_first_name] $_SESSION[user_name].";
+
+//}
+//else {
     //POST method by default
     if(isset($_POST['login_button']))
     {
@@ -32,7 +33,7 @@ else {
           $_SESSION["user_id"] = $session_user["user_id"];
 
           echo "<p>User $_SESSION[user_first_name] $_SESSION[user_name] has successfully logged in.</p>";
-          header("Location:main.html");
+          header("Location:main.php");
           die("Redirecting to: main.php");
         }
   		} catch (PDOException $exc) {
@@ -40,6 +41,6 @@ else {
   		  $msg = $exc->getMessage();
   		  $code = $exc->getCode();
   		  print "$msg (error code $code)";
-  		}
-  }
+  		//}
+ }
 ?>
