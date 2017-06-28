@@ -1,7 +1,7 @@
 <?php
 class Connection {
 
-  /** Give a connection to the quizz DB, in UTF-8 */
+  /** Give a connection to the quiz DB, in UTF-8 */
   public static function getConnection() {
     // DB configuration
     $db = "sql_quiz";

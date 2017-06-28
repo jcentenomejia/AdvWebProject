@@ -11,7 +11,7 @@ class PersonModel {
      * @param int $personId id of the quizz to be retrieved
      * @return associative_array table row
      */
-	
+
     public static function getPerson($personId) {
         $db = Connection::getConnection();
         $sql = "select * from user where user_id= :person_id";
@@ -22,6 +22,22 @@ class PersonModel {
         if ($ok) {
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
 			//echo $result;
+        }
+        return $result;
+    }
+
+    public static function authenticate($login, $password) {
+        $db = Connection::getConnection();
+        $sql = "SELECT user_id, email, name, first_name, pwd
+            FROM user
+            WHERE email = :email AND pwd = :password";
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(":email", $login);
+        $stmt->bindValue(":password", $password);
+        $ok = $stmt->execute();
+        $result = null;
+        if ($ok) {
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
         }
         return $result;
     }
