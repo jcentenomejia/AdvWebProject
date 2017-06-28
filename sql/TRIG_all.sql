@@ -9,7 +9,7 @@ BEGIN
     
     select scheduled_at into start_time from evaluation where evaluation_id = new.evaluation_id;
     
-    if new.started_at > start_time then
+    if new.started_at < start_time then
 		set msg = concat("It is too soon to start the test. Start time: ",start_time);
         signal sqlstate '45000'
         set MESSAGE_TEXT = msg, MYSQL_ERRNO=3001;
