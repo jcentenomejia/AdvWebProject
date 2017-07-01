@@ -9,3 +9,4 @@ RewriteEngine on
 RewriteBase /AdvWebProject/
 # Example
 RewriteRule ^src/evaluation-(.*)$ src/EvaluationController.php?eval_id=$1
+#RewriteRule ^src/question-(.*)-(.*)$ src/QuestionController.php?quiz_id=$1question_id=$2
