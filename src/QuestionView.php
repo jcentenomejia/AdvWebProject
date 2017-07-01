@@ -13,7 +13,27 @@
     </style>
 </head>
 <body>
-  <h1>Hovnoooooo</h1>
-  <?php echo $result?>
+  <ul class="pagination pagination-lg">
+   <li><a href="#">&laquo;</a></li>
+  <?php
+  $questionCount = 20;
+  for ($i=1 ; $i <= $questionCount ; $i++) {
+  	print "<li><a href='#'>$i</a></li>";
+  }
+  ?>
+    <li><a href="#">&raquo;</a></li>
+  </ul>
+  <form class="form-signin" action="AnswerController.php" method="post" id="question_form">
+      <h2 class="form-signin-heading">Question</h2>
+      </br>
+
+     <div class="form-group">
+       <label for="question" class="control-label">Text of the question</label>
+       <textarea name="answer_text" id="answer_text" type="text" class="form-control" placeholder="Your answer..." required="required"/></textarea>
+     </div>
+     <div class="form-group">
+         <button name="question_button" id="question_button" type="submit" class="btn btn-primary active">Validate</button>
+     </div>
+  </form>
 </body>
 </html>
