@@ -74,3 +74,16 @@ BEGIN
         set MESSAGE_TEXT = msg, MYSQL_ERRNO=3004;
     end if;
 END$$
+
+delimiter $$
+drop trigger if exists create_test_empty_answers$$
+CREATE trigger `create_test_empty_answers` 
+after insert on sql_quiz.test
+for each row
+BEGIN
+    
+    insert into sql_answer(question_id,student_id,evaluation_id,query)
+		select id, new.student_id, new.evaluation_id, '' from (select question_id id from quiz_question where quiz_id = 
+			(select quiz_id from evaluation where evaluation_id = new.evaluation_id)) as questions;
+    
+END$$
