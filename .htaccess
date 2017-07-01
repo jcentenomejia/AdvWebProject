@@ -1,0 +1,11 @@
+# Send all responses in utf-8
+AddDefaultCharset utf-8
+# Allow directory browsing
+Options +Indexes
+
+#Use url rewriting
+RewriteEngine on
+# Base directory for rewritng
+RewriteBase /AdvWebProject/
+# Example
+RewriteRule ^src/evaluation-(.*)$ src/EvaluationController.php?eval_id=$1

@@ -1,4 +1,4 @@
-DELIMITER $$
+userDELIMITER $$
 
 CREATE PROCEDURE init_dbs()
 
@@ -69,7 +69,7 @@ BEGIN
      #evaluation
 	 INSERT INTO evaluation (evaluation_id,scheduled_at, ending_at, nb_minutes, class_id, trainer_id, quiz_id, completed_at)  VALUES 
 		(1,'2017-06-25 16:03:34','2018-06-30 18:03:34',60, 1, 1, 1, '2018-06-30 22:03:34'), 
-		(2,'2017-06-15 16:03:34','2018-06-20 18:03:34',60, 1, 1, 1,  '2018-06-21 16:03:34');
+		(2,'2017-06-15 16:03:34','2018-06-20 18:03:34',60, 1, 1, 2,  '2018-06-21 16:03:34');
         
 	 #test = user-evaluation
 	 INSERT INTO test (student_id, evaluation_id, started_at, completed_at, validated_at) VALUES

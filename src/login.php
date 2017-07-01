@@ -33,8 +33,8 @@ session_start();
           $_SESSION["user_id"] = $session_user["user_id"];
 
           echo "<p>User $_SESSION[user_first_name] $_SESSION[user_name] has successfully logged in.</p>";
-          header("Location:main.php");
-          die("Redirecting to: main.php");
+          header("Location:evaluation-1");
+          die("Redirecting to: evaluation");
         }
   		} catch (PDOException $exc) {
   		  /* Each time we access a DB, an exception may occur */

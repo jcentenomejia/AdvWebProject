@@ -17,7 +17,8 @@
      <div class="container">
            <form class="form-signin" form action="login.php" method="post" id="login_form">
 
-            <h2 class="form-signin-heading">Log in to QuizApp.</h2></hr>
+            <h2 class="form-signin-heading">Log in to QuizApp.</h2>
+            </br>
             <?php
             if(isset($_GET['wmsg'])){
               echo "<div class='alert alert-warning'>

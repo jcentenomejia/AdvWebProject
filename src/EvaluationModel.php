@@ -6,7 +6,7 @@ require_once("connection.php");
  * Put here the methods like getBySomeCriteriaSEarch */
 class EvaluationModel {
 
-    
+
     public static function getEvaluation($evaluationId) {
         $db = Connection::getConnection();
         $sql = "select evaluation_id,scheduled_at, nb_minutes, quiz.title,class.name as class_name, concat(user.first_name, ' ',user.name) as trainer from evaluation as eval
@@ -19,9 +19,11 @@ class EvaluationModel {
         $result = null;
         if ($ok) {
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
-			//echo $result;
+            return $result;
         }
-        return $result;
+        else {
+          return die(404);
+        }
     }
 }
 
