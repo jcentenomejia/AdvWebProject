@@ -18,7 +18,7 @@
   <?php
   $questionCount = 20;
   for ($i=1 ; $i <= $questionCount ; $i++) {
-  	print "<li><a href='#'>$i</a></li>";
+  	print "<li><a href='#question$i'>$i</a></li>";
   }
   ?>
     <li><a href="#">&raquo;</a></li>
