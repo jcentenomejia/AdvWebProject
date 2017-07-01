@@ -23,7 +23,7 @@
 		  <p><b>Trainer : </b><?=$eval["trainer"]?></p>
 		  <p><b>Start time : </b><?=$eval["scheduled_at"]?></p>
 		  <p><b>Time in minutes: </b><?=$eval["nb_minutes"]?></p>
-      <a href="question.php?eval_id=<?=$id?>" id="eval_button" class="btn btn-success active" >Start Test</a>
+      <a href="QuestionController.php?eval_id=<?=$id?>" id="eval_button" class="btn btn-success active" >Start Test</a>
 		</div>
 
 		</body>

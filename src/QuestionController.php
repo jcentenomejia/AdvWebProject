@@ -1,15 +1,13 @@
 <?php
+
 /* Load the class accessing the DB */
+require_once("TestModel.php");
 
-require_once("EvaluationModel.php");
-
-
-$id = 1; //default evaluation
-$eval = null;
+$id = 1;
+$result = null;
 
 if (isset($_GET["eval_id"])){
   $id = $_GET["eval_id"];
-  //do_isEmpty();
 }
 
 function do_get($id){
@@ -17,8 +15,8 @@ function do_get($id){
 
   try {
     /* Access the db with PDO and get one row by its id */
-    $eval = EvaluationModel::getEvaluation($id);
-    return $eval;
+    $result = TestModel::getTest($id);
+    return $result;
 
   } catch (PDOException $exc) {
     /* Each time we access a DB, an exception may occur */
@@ -27,10 +25,9 @@ function do_get($id){
     print "$msg (error code $code)";
     return null;
   }
-
 }
 
-$eval = do_get($id);
+$result = do_get($id);
 
-require("EvaluationView.php");
+require("QuestionView.php");
 ?>

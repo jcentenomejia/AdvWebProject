@@ -14,34 +14,6 @@
 </head>
 <body>
   <h1>Hovnoooooo</h1>
-  <?php
-
-	/* Load the class accessing the DB */
-  require_once("TestModel.php");
-
-	if (isset($_GET["eval_id"])){
-		$id = $_GET["eval_id"];
-		do_get($id);
-	}else{
-		do_get(1); //default evaluation
-		//do_isEmpty();
-	}
-
-	function do_get($id){
-		//die('do get');
-
-		try {
-		  /* Access the db with PDO and get one row by its id */
-		  $eval = TestModel::getTest($id);
-
-		} catch (PDOException $exc) {
-		  /* Each time we access a DB, an exception may occur */
-		  $msg = $exc->getMessage();
-		  $code = $exc->getCode();
-		  print "$msg (error code $code)";
-		}
-  }
-		?>
-
+  <?php echo $result?>
 </body>
 </html>
