@@ -18,12 +18,17 @@
   </br>
   <div><a href="logout.php">Log Out</a></div>
   </br>
-      <p><b>Class : </b><?=$eval["class_name"]?></p>
-		  <p><b>Name of evaluation : </b><?php $eval["title"]?></p>
+  <form method="post" action="QuestionController.php"> 
+      
+	  <p><b>Class : </b><?=$eval["class_name"]?></p>
+		<input type="hidden" name="eval_id" value="<?=$eval["evaluation_id"]?>" />
+		  <p><b>Name of evaluation : </b><?=$eval["title"]?></p>
 		  <p><b>Trainer : </b><?=$eval["trainer"]?></p>
 		  <p><b>Start time : </b><?=$eval["scheduled_at"]?></p>
 		  <p><b>Time in minutes: </b><?=$eval["nb_minutes"]?></p>
-      <a href="QuestionController.php?eval_id=<?=$id?>" id="eval_button" class="btn btn-success active" >Start Test</a>
+      <button type="submit"  id="eval_button" class="btn btn-success active" >Start Test</button>
+		
+		</form>
 		</div>
 
 		</body>
