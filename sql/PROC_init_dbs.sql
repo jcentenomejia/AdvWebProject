@@ -1,4 +1,4 @@
-userDELIMITER $$
+use DELIMITER $$
 
 CREATE PROCEDURE init_dbs()
 
@@ -81,16 +81,32 @@ BEGIN
 	 
 	 #sql-question
 	INSERT INTO sql_question (question_id, question_text, correct_answer) VALUES 
-		(1, 'Select all the pilots in table pilots.', ''),
-		(2, '', ''),
-		(3, '', ''),
-		(4, '', ''),
-		(5, '', ''),
-		(6, '', ''),
-		(7, '', ''),
-		(8, '', ''),
-		(9, '', ''),
-		(10, '', '');
+		(1,  'Pilots with a bonus','SELECT * FROM pilot WHERE bonus IS NOT NULL;'),
+		(2,  'Pilots whose salary + bonus is between 6500 et 7000 € (limits included)', 'SELECT * FROM pilot WHERE salary + bonus BETWEEN 6500 AND 7000;'),
+		(3, 'Pilots whose name contains a u (in uppercase ou lowercase)', 'SELECT * FROM pilot WHERE lower(name) LIKE "%u%"'),
+		(4, 'Total number of pilots, and number of pilots with a bonus (in a single query)', 'SELECT COUNT(pilot_id) AS pilot_nb, COUNT(bonus) AS bonus_nb FROM pilot;'),
+		(5, 'Number of flights by departure day (dd-mm-yyy) and hour (hh:mn) (GROUP BY)', 'SELECT date_format(leaving_at, ''%d-%m-%Y'') AS day, date_format(leaving_at, ''%H:%i'') AS hour, COUNT(*) AS flight_nb FROM flight GROUP BY day, hour;'),
+		(6, 'Pilot name, plane model, departure date, departure and arrival airport id, sorted by pilot name and plane model (both in alphabetical order)',
+		'SELECT name, model, leaving_at, from_airport_id, to_airport_id FROM flight f INNER JOIN pilot p ON f.pilot_id = p.pilot_id INNER JOIN plane pl ON f.plane_id = pl.plane_id ORDER BY name, model;'),
+		(7, 'Departure and arrival city name, and departure date sorted by departure city name and arrival city name (both in alphabetical order)', 'SELECT name, model, leaving_at, from_airport_id, to_airport_id
+		FROM flight f INNER JOIN pilot p ON f.pilot_id = p.pilot_id INNER JOIN plane pl ON f.plane_id = pl.plane_id ORDER BY name, model;'),
+		(8, 'Pilots having the greatest salary (nested 1 value)', 'SELECT * FROM pilot WHERE salary = ( SELECT MAX(salary) FROM pilot );'),
+		(9, 'Flights occuring at 12/04/2015 (nested query)', 'SELECT * FROM flight WHERE flight_id IN (SELECT flight_id FROM flight WHERE date(leaving_at) = "2015-04-12" );'),
+		(10, 'Pilots having flown the same plane from the same airport as Mathieu Lenormand, including himself (nested queries)', 
+		'SELECT * FROM pilot WHERE pilot_id IN (SELECT pilot_id FROM flight WHERE (from_airport_id, plane_id) IN (SELECT from_airport_id, plane_id FROM flight WHERE pilot_id IN 
+        (SELECT pilot_id FROM pilot WHERE first_name="Mathieu" AND name="Lenormand")));'),
+		(11,'Name and salary of pilots flying a A380 (nested query)', 'SELECT name, salary FROM pilot WHERE pilot_id IN 
+        (SELECT pilot_id FROM flight WHERE plane_id IN ( SELECT plane_id FROM plane WHERE model="A380"));'),
+        (12, 'Id, name and flight hour total number per pilot, those without flight excluded',
+		'SELECT p.pilot_id, name, ROUND(SUM(TIMESTAMPDIFF(MINUTE, leaving_at, arriving_at))/60) AS nb_heures FROM pilot p
+		INNER JOIN flight ON p.pilot_id = flight.pilot_id GROUP BY p.pilot_id, name;'),
+		(13, 'City name, and number of flights leaving from it, including when there is none',
+		'SELECT city.name, count(flight_id) as nb_flights FROM city INNER JOIN airport a ON city.city_id = a.city_id LEFT OUTER JOIN flight f
+		ON f.from_airport_id = a.airport_id GROUP BY city.name;'),
+		(14, 'Name and id of pilots having used at least 2 planes', 'SELECT p.pilot_id, name, COUNT(DISTINCT plane_id) AS nb_planes
+		FROM pilot p INNER JOIN flight f ON p.pilot_id = f.pilot_id GROUP BY p.pilot_id, name HAVING nb_planes >= 2;'),
+		(15, 'Id and name of pilots without flight (with HAVING)', 'SELECT p.pilot_id, name, COUNT(flight_id) AS nb_flights FROM pilot p
+		LEFT OUTER JOIN flight f ON p.pilot_id = f.pilot_id GROUP BY p.pilot_id, name HAVING nb_flights = 0;');
 	 
 	 #quiz-question relation
 	  INSERT INTO quiz_question (question_id, quiz_id, rank) VALUES 
