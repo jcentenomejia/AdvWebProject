@@ -5,7 +5,7 @@ class Connection {
   public static function getConnection() {
     // DB configuration
     $db = "sql_quiz";
-    $dsn = "mysql:dbname=$db;host=localhost";
+    $dsn = "mysql:dbname=$db;host=localhost;charset=utf8";
     $user = "root";
     $password = "";
     // Get a DB connection with PDO library
