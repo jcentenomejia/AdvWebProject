@@ -9,7 +9,7 @@
         body { background: url(assets/bglight.png); }
         .hero-unit { background-color: #fff; }
         .center { display: block; margin: 0 auto; }
-		
+
 		 li.selected {
 			color: green;
 			background-color: green;
@@ -20,7 +20,7 @@
 		var index = 0;
 		var answers = <?php echo json_encode($answers);?>;
 		var arrSize = <?php echo $questionCount;?>;
-		
+
 		function submitAnswer(){
 			var question_id = answers[index]["question_id"];
 			var eval_id = answers[index]["evaluation_id"];
@@ -36,7 +36,7 @@
 					type:'POST',
 					//dataType: "json",
 					success: function(result){
-					
+
 					//alert(result);
 				},error: function(x, t, m) {
 					alert(t);
@@ -57,15 +57,15 @@
 					type:'POST',
 					dataType: "json",
 					success: function(result){
-					
+
 					$("#question_text").text(answers[index]['question_text']) ;
 					$("#answer_text").text(result['query']);
-					
+
 				},error: function(x, t, m) {
 					alert(t);
 				}
 			});
-			
+
 		};
 		function updateQuestionM(){
 			if(index > 0){
@@ -83,7 +83,7 @@
 			$li.removeClass('selected');
 			$(this).addClass('selected');
 		});
-		
+
 	</script>
 </head>
 <body>
@@ -98,7 +98,7 @@
      <div class="form-group">
          <button name="question_button" id="question_button" class="btn btn-primary active" onclick="submitAnswer()">Validate</button>
      </div>
-	 
+
 	 <div class="tabbable">
 	 <ul class="nav nav-tabs" id="nav">
 	   <li><a onclick="return updateQuestionM()">&laquo;</a></li>
@@ -112,7 +112,7 @@
 		<li><a onclick="return updateQuestionP()">&raquo;</a></li>
 	  </ul>
 	  </div>
-	  
+
   </div>
 </body>
 </html>

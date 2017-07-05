@@ -16,10 +16,12 @@
   <div class="container">
   <h1>Evaluation</h1></hr>
   </br>
+  <h5><?php
+  session_start(); echo "Welcome " + $_SESSION['user_first_name'] + " " + $_SESSION['user_name'] +"!";?><h5>
   <div><a href="logout.php">Log Out</a></div>
   </br>
-  <form method="post" action="QuestionController.php"> 
-      
+  <form method="post" action="QuestionController.php">
+
 	  <p><b>Class : </b><?=$eval["class_name"]?></p>
 		<input type="hidden" name="eval_id" value="<?=$eval["evaluation_id"]?>" />
 		  <p><b>Name of evaluation : </b><?=$eval["title"]?></p>
@@ -27,7 +29,7 @@
 		  <p><b>Start time : </b><?=$eval["scheduled_at"]?></p>
 		  <p><b>Time in minutes: </b><?=$eval["nb_minutes"]?></p>
       <button type="submit"  id="eval_button" class="btn btn-success active" >Start Test</button>
-		
+
 		</form>
 		</div>
 
