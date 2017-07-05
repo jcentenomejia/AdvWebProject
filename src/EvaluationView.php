@@ -15,6 +15,7 @@
 <body>
   <div class="container">
   <h1>Evaluation</h1></hr>
+  <h3><?php session_start();echo $_SESSION["user_first_name"]?></h3>
   </br>
   <h5><?php
   session_start(); echo "Welcome " + $_SESSION['user_first_name'] + " " + $_SESSION['user_name'] +"!";?><h5>
@@ -24,10 +25,12 @@
 
 	  <p><b>Class : </b><?=$eval["class_name"]?></p>
 		<input type="hidden" name="eval_id" value="<?=$eval["evaluation_id"]?>" />
+		<input type="hidden" name="eval_min" value="<?=$eval["real_nb_minutes"]?>"/>
 		  <p><b>Name of evaluation : </b><?=$eval["title"]?></p>
 		  <p><b>Trainer : </b><?=$eval["trainer"]?></p>
 		  <p><b>Start time : </b><?=$eval["scheduled_at"]?></p>
 		  <p><b>Time in minutes: </b><?=$eval["nb_minutes"]?></p>
+
       <button type="submit"  id="eval_button" class="btn btn-success active" >Start Test</button>
 
 		</form>
