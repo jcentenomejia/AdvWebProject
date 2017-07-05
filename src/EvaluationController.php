@@ -18,19 +18,19 @@ function do_get($id){
   try {
     /* Access the db with PDO and get one row by its id */
     $eval = EvaluationModel::getEvaluation($id);
-    return $eval;
-
+    //return $eval;
+	require("EvaluationView.php");
   } catch (PDOException $exc) {
     /* Each time we access a DB, an exception may occur */
     $msg = $exc->getMessage();
     $code = $exc->getCode();
     print "$msg (error code $code)";
-    return null;
+    //return null;
   }
 
 }
 
 $eval = do_get($id);
 
-require("EvaluationView.php");
+
 ?>

@@ -10,16 +10,49 @@
         .hero-unit { background-color: #fff; }
         .center { display: block; margin: 0 auto; }
 		
-		 li.selected {
-			color: green;
-			background-color: green;
-		}
     </style>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script type="text/javascript">
 		var index = 0;
 		var answers = <?php echo json_encode($answers);?>;
 		var arrSize = <?php echo $questionCount;?>;
+		
+		$(document).ready(function (e) {
+			var $worked = $("#timer");
+			document.getElementById("li0").setAttribute("class", "active");
+			
+			function update() {
+				var myTime = $worked.html();
+				var ss = myTime.split(":");
+				
+				var newSec = ss[1]-1;
+				var newMin = ss[0];
+				if(newSec < 0){
+					newSec =59;
+				  newMin --;
+				}
+				
+				var secToShow = newSec;
+				var minToShow = newMin;
+				if(newSec < 10){
+					secToShow = "0" + secToShow;
+				}
+				if(newMin < 10){
+					minToShow = minToShow;
+				}
+				if(minToShow<=0){
+					minToShow = 0;
+					secToShow = "00";
+					
+				}else{
+					setTimeout(update, 1000);
+				}
+				$worked.html(minToShow+":"+secToShow);
+				
+			}
+
+			setTimeout(update, 1000);
+		});
 		
 		function submitAnswer(){
 			var question_id = answers[index]["question_id"];
@@ -65,7 +98,15 @@
 					alert(t);
 				}
 			});
+			var li = "li"+index;
 			
+			for (i = 0; i < arrSize; i++) { 
+				var temp = "li"+i;
+				if(document.getElementById(temp).className != "answered" ){
+					$("#"+temp).removeClass();
+				}
+			}
+			document.getElementById(li).setAttribute("class", "active");
 		};
 		function updateQuestionM(){
 			if(index > 0){
@@ -79,19 +120,20 @@
 				updateQuestion(index);
 			}
 		};
-		var $li = $('#nav a').click(function() {
-			$li.removeClass('selected');
-			$(this).addClass('selected');
-		});
+		
 		
 	</script>
 </head>
 <body>
   <div class="container">
+	
       <h2 class="form-signin-heading">Question</h2>
       </br>
-
+	 <div class="form-group" align="right">
+		<label id="timer"><?=$_POST["eval_min"]?>:00</label>
+	 </div>
      <div class="form-group">
+		
        <label for="question" class="control-label" id="question_text"><?=$answers[0]["question_text"]?></label>
        <textarea name="answer_text" id="answer_text" type="text" class="form-control" placeholder="Your answer..." required="required"/></textarea>
      </div>
@@ -99,19 +141,17 @@
          <button name="question_button" id="question_button" class="btn btn-primary active" onclick="submitAnswer()">Validate</button>
      </div>
 	 
-	 <div class="tabbable">
-	 <ul class="nav nav-tabs" id="nav">
+	 <ul class="pagination pagination-lg" id="nav">
 	   <li><a onclick="return updateQuestionM()">&laquo;</a></li>
 	  <?php
 	  for ($i=0 ; $i < $questionCount ; $i++) {
 	  ?>
-		<li><a onclick="return updateQuestion(<?=$i?>)"><?=($i+1)?></a></li>
+		<li id="li<?=$i?>"><a onclick="return updateQuestion(<?=$i?>)"><?=($i+1)?></a></li>
 	  <?php
 	  }
 	  ?>
 		<li><a onclick="return updateQuestionP()">&raquo;</a></li>
 	  </ul>
-	  </div>
 	  
   </div>
 </body>
